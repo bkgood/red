@@ -1,3 +1,41 @@
+enum Address {
+    Current,
+    Last,
+    N(usize),
+    NthNext(usize),
+    NthPrev(usize),
+    Next,
+    Prev,
+    All,
+    ToLast,
+    NextMatch(String),
+    PrevMatch(String),
+    Mark(char),
+}
+
+enum CompoundAddress {
+    Literal(Address, usize),
+    Relative(Address, usize),
+}
+
+enum Command {
+    Edit(Option<String>),
+    Write(Option<String>),
+    Print,
+    Unknown,
+}
+
+impl Command {
+    fn from_char(c: char) -> Command {
+        match c {
+            'e' => Command::Edit(None),
+            'w' => Command::Write(None),
+            'p' => Command::Print,
+            _ => Command::Unknown,
+        }
+    }
+}
+
 // a place to read or write to.
 enum Target<'a> {
     File(&'a str),
